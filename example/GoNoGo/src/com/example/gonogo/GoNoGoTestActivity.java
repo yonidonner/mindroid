@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class GoNoGoTestActivity extends Activity {
     /** Called when the activity is first created. */
@@ -12,4 +13,12 @@ public class GoNoGoTestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gonogotest);
     }
+
+	@Override
+	protected void onStart() {
+		ImageView imageView = (ImageView)findViewById(R.id.stimulus_image);
+		GoNoGoTestInterface view = new GoNoGoTestInterface(imageView);
+		GoNoGoTestPresenter presenter = new GoNoGoTestPresenter(view);
+		presenter.startTest();
+	}
 }
