@@ -13,7 +13,7 @@ public class GoNoGoTestInterface implements GoNoGoTestView {
 	}
 
 	@Override
-	public void showStimulus(int stimulus) {
+	public void showStimulus(boolean isTarget) {
 		imageView.setVisibility(View.VISIBLE);
 
 	}
