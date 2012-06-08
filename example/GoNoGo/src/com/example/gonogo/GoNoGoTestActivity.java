@@ -13,13 +13,19 @@ public class GoNoGoTestActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gonogotest);
     }
-
+    
+    protected GoNoGoTestPresenter presenter;
+    protected ImageView imageView;
+    protected GoNoGoTestInterface view;
+    
 	@Override
 	protected void onStart() {
 		super.onStart();
-		ImageView imageView = (ImageView)findViewById(R.id.stimulus_image);
-		GoNoGoTestInterface view = new GoNoGoTestInterface(imageView);
-		GoNoGoTestPresenter presenter = new GoNoGoTestPresenter(this, view);
+		view = new GoNoGoTestInterface(this);
+		presenter = new GoNoGoTestPresenter(this, view);
+	}
+	
+	public void startClicked(View view) {
 		presenter.startTest();
 	}
 }
