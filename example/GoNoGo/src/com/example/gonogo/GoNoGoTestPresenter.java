@@ -6,6 +6,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.app.Activity;
+import android.view.MotionEvent;
+import android.view.View;
 
 public class GoNoGoTestPresenter {
 	protected Activity activity;
@@ -32,6 +34,7 @@ public class GoNoGoTestPresenter {
 	public void startTest() {
 		view.hideStartButton();
 		view.initialize();
+		view.setStatusText("");
 		currentTrial = 0;
 		trials = GoNoGoTrial.createExcitingTrials(108);
 		startTrial();
@@ -40,17 +43,32 @@ public class GoNoGoTestPresenter {
 	public void endTest() {
 		
 	}
+
+	public boolean onTouch(View v, MotionEvent event) {
+		if (!((testState == GoNoGoState.DURING_STIMULUS_DISPLAY) || (testState == GoNoGoState.AFTER_STIMULUS_DISPLAY))) {
+			return false;
+		}
+		if (trials.get(currentTrial).isTarget) {
+			view.setStatusText("Correct!");
+		}
+		else {
+			view.setStatusText("Wrong!");
+		}
+		return false;
+	}
 	
 	public void startTrial() {
 		activity.runOnUiThread(new Runnable() {
 			public void run() {
 				view.showStimulus(trials.get(currentTrial).isTarget);
+				testState = GoNoGoState.DURING_STIMULUS_DISPLAY;
 		    }
 		});
 		timer1.schedule(new TimerTask() {
 			public void run() {
 				activity.runOnUiThread(new Runnable() {
 					public void run() {
+						testState = GoNoGoState.AFTER_STIMULUS_DISPLAY;
 						view.hideStimulus();
 						timer2.schedule(new TimerTask() {
 							public void run() {

@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class GoNoGoTestActivity extends Activity {
     /** Called when the activity is first created. */
@@ -23,6 +25,8 @@ public class GoNoGoTestActivity extends Activity {
 		super.onStart();
 		view = new GoNoGoTestInterface(this);
 		presenter = new GoNoGoTestPresenter(this, view);
+		FrameLayout layout = (FrameLayout)findViewById(R.id.frame_layout);
+		view.setTouchView(layout, presenter);
 	}
 	
 	public void startClicked(View view) {
