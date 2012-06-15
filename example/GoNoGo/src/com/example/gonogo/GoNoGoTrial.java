@@ -6,7 +6,7 @@ import java.util.List;
 public class GoNoGoTrial {
 	public boolean isTarget;
 	public boolean userResponse;
-	public int reactionTime;
+	public long reactionTime;
 	
 	public GoNoGoTrial(boolean isTarget, boolean userResponse, int reactionTime) {
 		super();
